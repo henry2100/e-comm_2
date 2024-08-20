@@ -146,14 +146,7 @@ const CreditCardForm = (props) => {
 
                 <Button
                     btnType='submit'
-                    btnText={loading
-                        ? <Spinner
-                            text='Processing...'
-                            textStyle='font-bold text-lg mobile:text-sm text-white'
-                        />
-
-                        : 'Submit'
-                    }
+                    btnText='Submit'
                     btnStyle={`${props.darkMode ? 'bg-Primary_600 text-Primary' : 'bg-SecondaryAccent5 text-Primary'} hover:bg-BackDrop_d_xs w-fit mobile:w-full relative right-0 top-0 z-[22] mb-0 text-sm !rounded-lg truncate flex gap-4 justify-center items-center px-5 py-2 font-normal text-base leading-7 rounded-lg truncate transition ease-in-out duration-250 ${disableBtn && 'cursor-not-allowed'}`}
                     disabled={disableBtn}
                     onClick={() => { }}

@@ -48,7 +48,7 @@ const OrderInvoice = (props) => {
     useEffect(() => {
         getOrderInvoice();
     }, []);
-// }, [orderID, orderData.status]);
+    // }, [orderID, orderData.status]);
 
     const handlePrint = useReactToPrint({
         content: () => useNewRefEle.current,
@@ -105,7 +105,7 @@ const OrderInvoice = (props) => {
                     <img src={props.darkMode ? leftArrow_w : leftArrow_d} alt='back_button' className='w-4 h-4' />
                     <p className='font-normal text-sm mobile:text-xs text-Primary group-hover:text-Primary_300'>Back</p>
                 </div>
-                
+
                 <PageTitle
                     pageTitle='Checkout'
                     pageTitleStyle='!font-semibold !text-xl mobile:!text-lg !text-Primary'
@@ -114,94 +114,85 @@ const OrderInvoice = (props) => {
             </div>
 
             <div ref={useNewRefEle} className={`${props.darkMode ? 'bg-Primary_800' : 'bg-Primary_200'} ${loading && 'min-h-[60vh] justify-center items-center'} p-5 rounded-lg flex flex-col gap-5 desktop:max-w-xl max-w-xl mobile:max-w-full w-full mx-auto`}>
-                {loading
-                    ? <Spinner
-                        text='Processing...'
-                        textStyle='font-bold text-lg mobile:text-sm text-white'
+                <PageTitle
+                    pageTitle='Order Invoice'
+                    pageTitleStyle='!font-semibold !text-xl mobile:!text-lg !text-Primary'
+                    subTitle={orderID}
+                    subTitleStyle={props.darkMode ? 'text-Primary_200' : 'text-Primary'}
+                    style='!mb-4 !pb-0 !gap-0'
+                />
 
-                    />
+                <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex flex-col gap-1 font-normal border-b pb-1`}>
+                    <p className={`text-Primary text-xs tablet:text-[10px]`}>Name</p>
+                    <p className={`${props.darkMode ? 'text-PrimaryDisabled' : 'text-PrimaryActive'} text-semibold text-base tablet:text-sm`}>
+                        {orderData.name}
+                    </p>
+                </span>
 
-                    : <>
-                        <PageTitle
-                            pageTitle='Order Invoice'
-                            pageTitleStyle='!font-semibold !text-xl mobile:!text-lg !text-Primary'
-                            subTitle={orderID}
-                            subTitleStyle={props.darkMode ? 'text-Primary_200' : 'text-Primary'}
-                            style='!mb-4 !pb-0 !gap-0'
-                        />
+                <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex flex-col gap-1 font-normal border-b pb-1`}>
+                    <p className={`text-Primary text-xs tablet:text-[10px]`}>Delivery Address</p>
+                    <p className={`${props.darkMode ? 'text-PrimaryDisabled' : 'text-PrimaryActive'} text-semibold text-base tablet:text-sm`}>
+                        {orderData.address}
+                    </p>
+                </span>
 
-                        <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex flex-col gap-1 font-normal border-b pb-1`}>
-                            <p className={`text-Primary text-xs tablet:text-[10px]`}>Name</p>
-                            <p className={`${props.darkMode ? 'text-PrimaryDisabled' : 'text-PrimaryActive'} text-semibold text-base tablet:text-sm`}>
-                                {orderData.name}
-                            </p>
+                <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex justify-between items-center gap-5 font-normal border-b pb-1`}>
+                    <p className={`text-Primary text-xs tablet:text-[10px]`}>Order Status</p>
+
+                    <span className={`${orderData.status === 'Success'
+                        ? `${props.darkMode ? 'bg-[#027A481a]' : 'bg-Green_Accent8'} text-Success2`
+                        : orderData.status === 'Failed'
+                            ? `${props.darkMode ? 'bg-[#B423181a]' : 'bg-DangerAccent5'} text-Danger4`
+                            : orderData.status === 'Pending'
+                                ? `${props.darkMode ? 'bg-[#FFBF001a]' : 'bg-Yellow_Accent'} text-Yellow`
+                                : `${props.darkMode ? 'bg-[#363F721a]' : 'bg-SecondaryAccent11'} text-PrimaryActive`
+                        } px-[10px] py-[5px] w-fit rounded-md`}>
+                        {orderData.status}
+                    </span>
+                </span>
+
+                <div className='flex flex-col justify-between gap-5 my-8'>
+                    <div className={`text-Primary_600 flex mobile:flex-col justify-between gap-5 border-b-[.5px]`}>
+                        <span className='w-2/4 text-left'>
+                            <p className='text-PrimaryActive font-semibold text-lg'>Product Name</p>
                         </span>
-
-                        <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex flex-col gap-1 font-normal border-b pb-1`}>
-                            <p className={`text-Primary text-xs tablet:text-[10px]`}>Delivery Address</p>
-                            <p className={`${props.darkMode ? 'text-PrimaryDisabled' : 'text-PrimaryActive'} text-semibold text-base tablet:text-sm`}>
-                                {orderData.address}
-                            </p>
+                        <span className='w-1/4 text-right'>
+                            <p className='text-PrimaryActive font-normal text-base'>Quantity</p>
                         </span>
+                        <span className='w-1/4 text-right'>
+                            <p className='text-PrimaryActive font-normal text-base'>Price</p>
+                        </span>
+                    </div>
 
-                        <span className={`${props.darkMode ? 'border-Primary_700' : ''} flex justify-between items-center gap-5 font-normal border-b pb-1`}>
-                            <p className={`text-Primary text-xs tablet:text-[10px]`}>Order Status</p>
-
-                            <span className={`${orderData.status === 'Success'
-                                ? `${props.darkMode ? 'bg-[#027A481a]' : 'bg-Green_Accent8'} text-Success2`
-                                : orderData.status === 'Failed'
-                                    ? `${props.darkMode ? 'bg-[#B423181a]' : 'bg-DangerAccent5'} text-Danger4`
-                                    : orderData.status === 'Pending'
-                                        ? `${props.darkMode ? 'bg-[#FFBF001a]' : 'bg-Yellow_Accent'} text-Yellow`
-                                        : `${props.darkMode ? 'bg-[#363F721a]' : 'bg-SecondaryAccent11'} text-PrimaryActive`
-                                } px-[10px] py-[5px] w-fit rounded-md`}>
-                                {orderData.status}
+                    {orderData.products?.map(item => (
+                        <div className={`${props.darkMode ? 'text-Primary_300' : 'text-PrimaryActive'} border-b-[.5px] border-PrimaryActive flex mobile:flex-col justify-between gap-5`}>
+                            <span className='w-2/4 text-left'>
+                                <p className='font-semibold text-base'>{item.name}</p>
                             </span>
-                        </span>
-
-                        <div className='flex flex-col justify-between gap-5 my-8'>
-                            <div className={`text-Primary_600 flex mobile:flex-col justify-between gap-5 border-b-[.5px]`}>
-                                <span className='w-2/4 text-left'>
-                                    <p className='text-PrimaryActive font-semibold text-lg'>Product Name</p>
-                                </span>
-                                <span className='w-1/4 text-right'>
-                                    <p className='text-PrimaryActive font-normal text-base'>Quantity</p>
-                                </span>
-                                <span className='w-1/4 text-right'>
-                                    <p className='text-PrimaryActive font-normal text-base'>Price</p>
-                                </span>
-                            </div>
-
-                            {orderData.products?.map(item => (
-                                <div className={`${props.darkMode ? 'text-Primary_300' : 'text-PrimaryActive'} border-b-[.5px] border-PrimaryActive flex mobile:flex-col justify-between gap-5`}>
-                                    <span className='w-2/4 text-left'>
-                                        <p className='font-semibold text-base'>{item.name}</p>
-                                    </span>
-                                    <span className='w-1/4 text-right'>
-                                        <p className='font-normal text-base'>{item.quantity}</p>
-                                    </span>
-                                    <span className='w-1/4 text-right'>
-                                        <p className='font-normal text-base'>{Intl.NumberFormat().format(item.price)}</p>
-                                    </span>
-                                </div>
-                            ))}
+                            <span className='w-1/4 text-right'>
+                                <p className='font-normal text-base'>{item.quantity}</p>
+                            </span>
+                            <span className='w-1/4 text-right'>
+                                <p className='font-normal text-base'>{Intl.NumberFormat().format(item.price)}</p>
+                            </span>
                         </div>
+                    ))}
+                </div>
 
-                        <div className='flex mobile:flex-col justify-end gap-5'>
-                            <Button
-                                btnType='button'
-                                btnText='Print'
-                                btnStyle={`${props.darkMode ? 'bg-Primary_800 text-Primary hover:bg-Primary_700' : 'bg-SecondaryAccent5 text-Primary'} w-fit relative right-0 top-0 z-[22] mb-0 text-sm !rounded-lg truncate flex gap-4 justify-center items-center px-5 py-2 font-normal text-base leading-7 rounded-lg truncate transition ease-in-out duration-250`}
-                                onClick={handlePrint}
-                            />
-                            <Button
-                                btnType='button'
-                                btnText='Download'
-                                btnStyle={`${props.darkMode ? 'bg-Primary_600 hover:bg-PrimaryActive' : 'bg-Primary hover:bg-Primary_300'} w-fit relative right-0 top-0 z-[22] mb-0 text-sm !rounded-lg truncate flex gap-4 justify-center items-center px-5 py-2 font-normal text-base leading-7 rounded-lg truncate text-white transition ease-in-out duration-250`}
-                                onClick={handleDownloadPdf}
-                            />
-                        </div>
-                    </>}
+                <div className='flex mobile:flex-col justify-end gap-5'>
+                    <Button
+                        btnType='button'
+                        btnText='Print'
+                        btnStyle={`${props.darkMode ? 'bg-Primary_800 text-Primary hover:bg-Primary_700' : 'bg-SecondaryAccent5 text-Primary'} w-fit relative right-0 top-0 z-[22] mb-0 text-sm !rounded-lg truncate flex gap-4 justify-center items-center px-5 py-2 font-normal text-base leading-7 rounded-lg truncate transition ease-in-out duration-250`}
+                        onClick={handlePrint}
+                    />
+                    <Button
+                        btnType='button'
+                        btnText='Download'
+                        btnStyle={`${props.darkMode ? 'bg-Primary_600 hover:bg-PrimaryActive' : 'bg-Primary hover:bg-Primary_300'} w-fit relative right-0 top-0 z-[22] mb-0 text-sm !rounded-lg truncate flex gap-4 justify-center items-center px-5 py-2 font-normal text-base leading-7 rounded-lg truncate text-white transition ease-in-out duration-250`}
+                        onClick={handleDownloadPdf}
+                    />
+                </div>
             </div>
 
             <div className='flex justify-center items-center'>

@@ -241,16 +241,7 @@ const Profile = (props) => {
                 <div className='relative rounded-lg w-full min-h-[20vh] flex mobile:flex-col gap-5 mb-12'>
 
                     <div className={`${loading ? 'justify-center items-center' : 'flex-col justify-between gap-12'} relative desktop:w-1/5 w-1/3 mobile:w-full flex flex-col gap-5 justify-center items-center`} style={{ height: 'auto' }}>
-                        {loading
-                            ? <Spinner
-                                textStyle='text-lg font-semibold text-Primary'
-                                borderStyle='border-4 border-Primary border-r-transparent w-8 h-8'
-                            />
-
-                            : <>
-                                {profileImgComp}
-                            </>
-                        }
+                    {profileImgComp}
 
                     </div>
 

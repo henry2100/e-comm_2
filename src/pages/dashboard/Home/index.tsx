@@ -74,46 +74,39 @@ const Home = (props: any) => {
 
     return (
         <div className={`relative desktop:px-32 desktop:py-10 px-16 py-8 mobile:p-3 min-h-[90vh] flex ${loading ? 'justify-center items-center' : 'flex-col justify-between gap-12'}`}>
-            {loading
-                ? <Spinner
-                    text='Fetching Products...'
-                    textStyle='text-lg font-semibold text-Primary'
-                    borderStyle='border-4 border-Primary border-r-transparent w-8 h-8'
-                />
+            <div className='grid desktop:grid-cols-4 grid-cols-3 mobile:grid-cols-2 desktop:gap-x-10 desktop:gap-y-16 gap-6 mobile:gap-4 mt-12 mobile:mt-5' >
+                {filteredData?.length === 0
+                    ? <ErrorEmptyState
+                        img={true}
+                        style='!bg-NoColor !border-none left-0 right-0 bottom-0 mx-auto'
+                        btn={true}
+                        btnText='Reload'
+                        btnStyle="!bg-Primary_200 !text-Primary"
+                        btnImg={reloadIcon}
+                        btnImgStyle={`w-4 h-4 transition ease-in-out duration-500 ${loading && 'animate-fullRoll'}`}
+                        onClick={refreshState}
+                    />
 
-                : <div className='grid desktop:grid-cols-4 grid-cols-3 mobile:grid-cols-2 desktop:gap-x-10 desktop:gap-y-16 gap-6 mobile:gap-4 mt-12 mobile:mt-5' >
-                    {filteredData?.length === 0
-                        ? <ErrorEmptyState
-                            img={true}
-                            style='!bg-NoColor !border-none left-0 right-0 bottom-0 mx-auto'
-                            btn={true}
-                            btnText='Reload'
-                            btnStyle="!bg-Primary_200 !text-Primary"
-                            btnImg={reloadIcon}
-                            btnImgStyle={`w-4 h-4 transition ease-in-out duration-500 ${loading && 'animate-fullRoll'}`}
-                            onClick={refreshState}
+                    : currentData?.map((item, i) => (
+                        <ProductCard
+                            key={i}
+                            productId={item._id}
+                            productImg={item.imageUrl}
+                            currency={item.currency}
+                            category={item.category}
+                            tags={item.tags}
+                            name={item.name}
+                            desc={item.description}
+                            price={item.price}
+                            quantity={item.quantity}
                         />
-
-                        : currentData?.map((item, i) => (
-                            <ProductCard
-                                key={i}
-                                productId={item._id}
-                                productImg={item.imageUrl}
-                                currency={item.currency}
-                                category={item.category}
-                                tags={item.tags}
-                                name={item.name}
-                                desc={item.description}
-                                price={item.price}
-                                quantity={item.quantity}
-                            />
-                        ))}
-                </div>
-            }
+                    ))}
+            </div>
             {filteredData.length > 0 && totalPages > 1 && !loading && <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 totalData={filteredData.length}
+                itemsPerPage={recordsPerPage}
                 onPageChange={handlePageChange}
             />}
         </div>

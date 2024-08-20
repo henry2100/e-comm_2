@@ -65,45 +65,38 @@ const MyProducts = (props: any) => {
 
     return (
         <div className={`min-h-[40vh] h-fit flex ${loading ? 'justify-center items-center' : 'flex-col justify-between gap-12'}`}>
-            {loading
-                ? <Spinner
-                    text='Fetching Products...'
-                    textStyle='text-lg font-semibold text-Primary'
-                    borderStyle='border-4 border-Primary border-r-transparent w-8 h-8'
-                />
+            <div className={`${products.length < 1 ? 'flex flex-row justify-center items-center' : 'grid desktop:py-8 py-6 mobile:p-2'} desktop:grid-cols-4 grid-cols-3 mobile:grid-cols-1 mx-auto desktop:gap-8 gap-6 mobile:gap-4`}>
+                {products.length < 1
+                    ? <ErrorEmptyState
+                        img={true}
+                        errorMssg='You have not uploaded any products yet'
+                        style='!bg-NoColor !border-none left-0 right-0 bottom-0 mx-auto !relative'
+                        btn={true}
+                        btnText='Reload'
+                        btnStyle="!bg-Primary_200 !text-Primary"
+                        btnImg={reloadIcon}
+                        btnImgStyle={`w-4 h-4 transition ease-in-out duration-500 ${loading && 'animate-fullRoll'}`}
+                        onClick={refreshState}
+                    />
 
-                : <div className={`${products.length < 1 ? 'flex flex-row justify-center items-center' : 'grid desktop:py-8 py-6 mobile:p-2'} desktop:grid-cols-4 grid-cols-3 mobile:grid-cols-1 mx-auto desktop:gap-8 gap-6 mobile:gap-4`}>
-                    {products.length < 1
-                        ? <ErrorEmptyState
-                            img={true}
-                            errorMssg='You have not uploaded any products yet'
-                            style='!bg-NoColor !border-none left-0 right-0 bottom-0 mx-auto !relative'
-                            btn={true}
-                            btnText='Reload'
-                            btnStyle="!bg-Primary_200 !text-Primary"
-                            btnImg={reloadIcon}
-                            btnImgStyle={`w-4 h-4 transition ease-in-out duration-500 ${loading && 'animate-fullRoll'}`}
-                            onClick={refreshState}
+                    : currentData.map((item, i) => (
+                        <AdminProductCard
+                            key={i}
+                            productId={item._id}
+                            productImg={item.imageUrl}
+                            name={item.name}
+                            desc={item.description}
+                            price={item.price}
+                            quantity={item.quantity}
                         />
-
-                        : currentData.map((item, i) => (
-                            <AdminProductCard
-                                key={i}
-                                productId={item._id}
-                                productImg={item.imageUrl}
-                                name={item.name}
-                                desc={item.description}
-                                price={item.price}
-                                quantity={item.quantity}
-                            />
-                        ))
-                    }
-                </div>
-            }
+                    ))
+                }
+            </div>
             {products.length > 0 && totalPages > 1 && !loading && <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 totalData={products.length}
+                itemsPerPage={recordsPerPage}
                 onPageChange={handlePageChange}
             />}
         </div>

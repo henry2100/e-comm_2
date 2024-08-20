@@ -8,7 +8,7 @@ const App = () => {
     <div className={`h-full w-full m-0 min-h-screen`}>
       <StandardErrorBoundary>
         <AppRouter />
-        <Toaster />
+        {/* <Toaster /> */}
       </StandardErrorBoundary>
     </div>
   )

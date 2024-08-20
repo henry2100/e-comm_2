@@ -389,14 +389,7 @@ const Register = (props: any) => {
 
                 <Button
                     btnType='submit'
-                    btnText={loading
-                        ? <Spinner
-                            text='Loading...'
-                            textStyle='font-bold text-lg mobile:text-sm text-white'
-                        />
-
-                        : 'Create Account'
-                    }
+                    btnText='Create Account'
                     btnStyle={`px-5 py-2 w-full font-bold text-lg mobile:text-sm text-white bg-Primary ${!disableBtn && 'hover:bg-Primary_Accents_3xl'}`}
                     disabled={disableBtn}
                     disabledClass={`${disableBtn && 'cursor-not-allowed !text-Primary bg-PrimaryDisabled'}`}

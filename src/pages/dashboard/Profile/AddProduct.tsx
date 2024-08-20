@@ -334,14 +334,7 @@ const AddProduct = (props: any) => {
                     />
                     <Button
                         btnType='submit'
-                        btnText={loading
-                            ? <Spinner
-                                text='Loading...'
-                                textStyle='font-bold text-lg mobile:text-sm text-white'
-                            />
-
-                            : 'Submit'
-                        }
+                        btnText='Submit'
                         btnStyle={`${props.darkMode ? 'bg-Primary_600 hover:bg-PrimaryActive' : 'bg-Primary hover:bg-Primary_300'} px-5 py-2 w-fit mobile:w-full font-bold text-base mobile:text-sm text-white ${!disableBtn && 'hover:bg-Primary_Accents_3xl'}`}
                         disabled={disableBtn}
                         disabledClass={`${disableBtn && 'cursor-not-allowed !text-Primary bg-PrimaryDisabled'}`}

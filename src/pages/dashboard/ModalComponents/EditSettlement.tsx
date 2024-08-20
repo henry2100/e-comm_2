@@ -182,22 +182,15 @@ const EditSettlement = (props) => {
                     <div className=''>
                         <p className="mb-2 font-semibold text-sm leading-6 text-Black2">Account name</p>
                         <div className={`${props.darkMode ? 'bg-Primary_Accents_sm !border-none text-Primary_200' : 'bg-white border'} rounded-md p-2 text-sm `}>
-                            {loadingAcctData ? (
-                                <div className="flex animate-pulse w-full gap-3">
-                                    <div className={`rounded h-5 w-3/6 bg-gray-300`}></div>
-                                    <div className={`rounded h-5 w-2/6 bg-gray-300`}></div>
-                                </div>
-                            ) : (
-                                <span className={`${accountName === '' && 'text-gray-400'}`}>
-                                    {accountName !== ''
-                                        ? <strong>
-                                            {accountName}
-                                        </strong>
-                                        : props.authData?.data?.settlementInfo?.accountName === ''
-                                            ? 'This field is auto generated'
-                                            : props.authData?.data?.settlementInfo?.accountName
-                                    }</span>
-                            )}
+                            <span className={`${accountName === '' && 'text-gray-400'}`}>
+                                {accountName !== ''
+                                    ? <strong>
+                                        {accountName}
+                                    </strong>
+                                    : props.authData?.data?.settlementInfo?.accountName === ''
+                                        ? 'This field is auto generated'
+                                        : props.authData?.data?.settlementInfo?.accountName
+                                }</span>
                         </div>
                     </div>
                 </div>
@@ -212,14 +205,7 @@ const EditSettlement = (props) => {
                     />
                     <Button
                         btnType='submit'
-                        btnText={loading
-                            ? <Spinner
-                                text='Loading...'
-                                textStyle='font-bold text-lg mobile:text-sm text-white'
-                            />
-
-                            : 'Submit'
-                        }
+                        btnText='Submit'
                         btnStyle={`${props.darkMode ? 'bg-Primary_600 hover:bg-PrimaryActive' : 'bg-Primary hover:bg-Primary_300'} px-5 py-2 w-fit mobile:w-full font-bold text-base mobile:text-sm text-white ${!disableBtn && 'hover:bg-Primary_Accents_3xl'}`}
                         disabled={disableBtn}
                         disabledClass={`${disableBtn && 'cursor-not-allowed !text-Primary bg-PrimaryDisabled'}`}

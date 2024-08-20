@@ -64,14 +64,7 @@ const ForgotPassword = () => {
 
                 <Button
                     btnType='submit'
-                    btnText={loading
-                        ? <Spinner
-                            text='Loading...'
-                            textStyle='font-bold text-lg mobile:text-sm text-white'
-                        />
-
-                        : 'Request reset link'
-                    }
+                    btnText='Request reset link'
                     btnStyle={`px-5 py-2 w-full font-bold text-lg mobile:text-sm text-white bg-Primary ${!disableBtn && 'hover:bg-Primary_Accents_3xl'}`}
                     disabled={disableBtn}
                     disabledClass={`${disableBtn && 'cursor-not-allowed !text-GrayCustom2 bg-PrimaryDisabled'}`}

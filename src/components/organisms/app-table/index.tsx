@@ -42,15 +42,7 @@ const AppTable: React.FC<TableProps> = ({ columns, data, itemsPerPage, loading, 
       <div className={`${darkMode ? 'bg-Primary_800' : 'bg-Primary_Accents_xs'} overflow-x-auto rounded-lg mb-10`}>
         <table className={`min-w-full mobile:min-h-full ${loading && !loaderHeight && 'min-h-[587px]'} ${loading && loaderHeight && 'min-h-[406px]'} ${errorState && 'min-h-[300px]'} divide-y ${darkMode ? 'divide-PrimaryActive' : 'divide-gray-200'}`}>
           <TableHeader columns={columns} />
-          {loading ?
-            <div className={`absolute z-10 flex items-center py-10 justify-center w-full h-[80%] ${addedStyle}`}>
-              <Spinner
-                text='Loading...'
-                textStyle='font-bold text-lg mobile:text-sm text-white'
-              />
-            </div>
-
-            : !errorState && data.length > 0 ?
+          {!errorState && data.length > 0 ?
               <TableBody columns={columns} data={currentData} darkMode={darkMode} />
 
               : <tbody>
@@ -63,6 +55,7 @@ const AppTable: React.FC<TableProps> = ({ columns, data, itemsPerPage, loading, 
         currentPage={currentPage}
         totalPages={totalPages}
         totalData={dataLength ? dataLength : data.length}
+        itemsPerPage={itemsPerPage}
         onPageChange={handlePageChange}
       />}
     </div>

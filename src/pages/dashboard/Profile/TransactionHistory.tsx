@@ -17,6 +17,9 @@ const TransactionHistory = (props) => {
         setPageNum(pageNumber);
     }
 
+    console.log("Log new");
+    
+
     const columns = [
         {
             label: 'Date',
